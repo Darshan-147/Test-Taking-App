@@ -6,6 +6,7 @@ const QuizQuestion = ({ quizData }) => {
   const [score, setScore] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
   const [timeLeft, setTimeLeft] = useState(Infinity); // Timer for each question
+  const [showCorrect, setShowCorrect] = useState(false);
 
   // Timer logic
   useEffect(() => {
@@ -27,12 +28,15 @@ const QuizQuestion = ({ quizData }) => {
   const handleAnswer = (is_correct) => {
     if (is_correct) {
       setScore(score + 1);
+      setShowCorrect(true);
+
+      setTimeout(() => setShowCorrect(false), 500);
     }
 
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < quizData.length) {
       setCurrentQuestion(nextQuestion);
-      setTimeLeft(20);
+      setTimeLeft(Infinity);
     } else {
       setShowSummary(true);
     }
@@ -84,9 +88,16 @@ const QuizQuestion = ({ quizData }) => {
         <p className="text-xl text-gray-700 mb-6">{description}</p>
 
         {/* Points */}
-        <p className="text-lg font-semibold text-purple-600 mb-6">
-          Points: {score}
-        </p>
+        <div className="flex items-center gap-4 mb-6">
+          <p className="text-lg font-semibold text-purple-600">
+            Points: {score}
+          </p>
+          {showCorrect && (
+            <span className="text-green-500 font-bold animate-[fadeIn_0.5s_ease-in] flex items-center gap-2">
+              Correct! <span className="text-2xl">✓</span>
+            </span>
+          )}
+        </div>
 
         {/* Options */}
         <div className="grid grid-cols-1 gap-4">
