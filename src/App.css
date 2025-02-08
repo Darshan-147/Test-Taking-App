@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  transition: background-color 0.3s ease;
+}
