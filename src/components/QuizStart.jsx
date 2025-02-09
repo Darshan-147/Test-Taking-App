@@ -7,6 +7,7 @@ const QuizStart = ({ darkMode, setDarkMode }) => {
   const [quizData, setQuizData] = useState([]);
   const [quizTitle, setQuizTitle] = useState("");
   const [quizTopic, setQuizTopic] = useState("");
+  const [marks, setMarks] = useState({ positive: 4, negative: -1 });
   const [startQuiz, setStartQuiz] = useState(false);
 
   useEffect(() => {
@@ -14,9 +15,13 @@ const QuizStart = ({ darkMode, setDarkMode }) => {
       try {
         const data = await fetchQuizData();
         setQuizData(data.questions);
-        console.log(data.questions);
+        // console.log(data.questions);
         setQuizTitle(data.title);
         setQuizTopic(data.topic);
+        setMarks({
+          positive: data.correct_answer_marks,
+          negative: data.negative_marks
+        })
       } catch (err) {
         console.error("Error loading quiz data: ", err);
       }
@@ -29,6 +34,7 @@ const QuizStart = ({ darkMode, setDarkMode }) => {
       <Navbar
         title={quizTitle}
         topic={quizTopic}
+        marks={marks}
         darkMode={darkMode}
         setDarkMode={setDarkMode}
       />

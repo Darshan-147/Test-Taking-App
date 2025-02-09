@@ -7,6 +7,7 @@ const QuizQuestion = ({ quizData }) => {
   const [showSummary, setShowSummary] = useState(false);
   const [timeLeft, setTimeLeft] = useState(Infinity); // Timer for each question
   const [showCorrect, setShowCorrect] = useState(false);
+  const [showIncorrect, setShowIncorrect] = useState(false);
 
   // Timer logic
   useEffect(() => {
@@ -27,10 +28,14 @@ const QuizQuestion = ({ quizData }) => {
   //   Handle user's answer
   const handleAnswer = (is_correct) => {
     if (is_correct) {
-      setScore(score + 1);
+      setScore(score + 4);
       setShowCorrect(true);
-
       setTimeout(() => setShowCorrect(false), 500);
+    }
+    else if(!is_correct){
+      setScore(score - 1);
+      setShowIncorrect(true);
+      setTimeout(() => setShowIncorrect(false), 500);
     }
 
     const nextQuestion = currentQuestion + 1;
@@ -95,6 +100,11 @@ const QuizQuestion = ({ quizData }) => {
           {showCorrect && (
             <span className="text-green-500 font-bold animate-[fadeIn_0.5s_ease-in] flex items-center gap-2">
               Correct! <span className="text-2xl">✓</span>
+            </span>
+          )}
+          {showIncorrect && (
+            <span className="text-red-500 font-bold animate-[fadeIn_0.5s_ease-in] flex items-center gap-2">
+              Incorrect! <span className="text-2xl">×</span>
             </span>
           )}
         </div>

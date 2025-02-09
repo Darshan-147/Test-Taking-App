@@ -2,19 +2,19 @@ import React from "react";
 
 const QuizSummary = ({ score, totalQuestions }) => {
   const getScoreRemark = (score) => {
-    if (score === 10) {
+    if (score === 40) {
       return {
         message: "Perfection!",
         className:
           "text-xl font-bold bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-transparent bg-clip-text mb-6",
       };
-    } else if (score > 7) {
+    } else if (score > 28) {
       return {
         message: "Awesome, you nailed it!",
         className:
           "text-xl font-bold bg-gradient-to-r from-orange-500 to-rose-500 text-transparent bg-clip-text mb-6",
       };
-    } else if (score > 3) {
+    } else if (score > 12) {
       return {
         message: "Good, but you can do better!",
         className:
@@ -38,7 +38,7 @@ const QuizSummary = ({ score, totalQuestions }) => {
           Quiz Complete!
         </h1>
         <p className="text-xl text-gray-700 mb-6">
-          You scored {score} out of {totalQuestions}
+          You scored {score} out of {totalQuestions*4}
         </p>
         <p className={scoreRemark.className}>{scoreRemark.message}</p>
         <button
