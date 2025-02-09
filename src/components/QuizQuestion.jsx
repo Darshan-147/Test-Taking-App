@@ -52,7 +52,7 @@ const QuizQuestion = ({ quizData }) => {
   const progress = ((currentQuestion + 1) / quizData.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen bg-gray-100 pt-32 p-4">
       <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-xl p-6">
         <h2 className="text-xl lg:text-2xl font-bold text-gray-800 mb-4">
           Question {currentQuestion + 1}

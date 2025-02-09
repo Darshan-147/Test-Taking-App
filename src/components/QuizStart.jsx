@@ -52,7 +52,7 @@ const QuizStart = ({ darkMode, setDarkMode }) => {
             </h1>
             <button
               onClick={() => setStartQuiz(true)}
-              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:opacity-80 transition-opacity cursor-pointer"
+              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-6 rounded-lg cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-120 hover:shadow-xl hover:-translate-y-1 active:scale-95 active:shadow-md"
             >
               Start Quiz
             </button>
