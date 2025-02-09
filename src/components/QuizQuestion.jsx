@@ -5,7 +5,7 @@ const QuizQuestion = ({ quizData }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(Infinity); // Timer for each question
+  const [timeLeft, setTimeLeft] = useState(30); // Timer for each question
   const [showCorrect, setShowCorrect] = useState(false);
   const [showIncorrect, setShowIncorrect] = useState(false);
 
@@ -21,7 +21,7 @@ const QuizQuestion = ({ quizData }) => {
   // Automatically move to the next question if time runs out
   useEffect(() => {
     if (timeLeft === 0) {
-      handleAnswer(false);
+      moveToNextQuestion();
     }
   }, [timeLeft]);
 
@@ -31,24 +31,33 @@ const QuizQuestion = ({ quizData }) => {
       setScore(score + 4);
       setShowCorrect(true);
       setTimeout(() => setShowCorrect(false), 500);
-    }
-    else if(!is_correct){
+    } else {
       setScore(score - 1);
       setShowIncorrect(true);
       setTimeout(() => setShowIncorrect(false), 500);
     }
 
+    moveToNextQuestion();
+  };
+
+  const moveToNextQuestion = () => {
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < quizData.length) {
       setCurrentQuestion(nextQuestion);
-      setTimeLeft(Infinity);
+      setTimeLeft(30);
     } else {
       setShowSummary(true);
     }
   };
 
   if (showSummary) {
-    return <QuizSummary score={score} totalQuestions={quizData.length} />;
+    return (
+      <QuizSummary
+        score={score}
+        totalQuestions={quizData.length}
+        quizData={quizData}
+      />
+    );
   }
 
   // Destructuring questions and options from quizData
@@ -110,7 +119,7 @@ const QuizQuestion = ({ quizData }) => {
         </div>
 
         {/* Options */}
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-4 mb-6">
           {options.map((option, id) => (
             <button
               key={id}
@@ -120,6 +129,16 @@ const QuizQuestion = ({ quizData }) => {
               {option.description}
             </button>
           ))}
+        </div>
+
+        {/* Button for Next Question */}
+        <div className="flex justify-end">
+          <button
+            onClick={() => moveToNextQuestion()}
+            className="bg-gradient-to-r from-pink-500 to-cyan-500 button"
+          >
+            Skip Question →
+          </button>
         </div>
       </div>
     </div>
